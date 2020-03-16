@@ -1,0 +1,98 @@
+<div class="swiper-container featured-products-slider">
+    <h2>{{section.settings.featured-slider-header}}</h2>
+    <div class="swiper-wrapper">
+      {% for product in collections.featured-products.products %}
+        <div class="swiper-slide">
+            <a href="{{ product.url }}">
+                <img src="{{ product | img_url }}">
+                <h2>{{ product.title }}</h2>
+                <span>{{ product.price | money }}</span>
+            </a>
+        </div>
+      {% endfor %}
+    </div>
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+  </div>
+
+<script>
+    var swiper = new Swiper('.swiper-container', {
+      slidesPerView: {{ section.settings.slides-per-view-mobile }},
+      slidesPerGroup: {{ section.settings.slides-per-group-mobile }},
+      spaceBetween: 50,
+      centerInsufficientSlides: true,
+      loop: {{ section.settings.slides-loop }},
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+      breakpoints: {
+        980: {
+            slidesPerView: {{ section.settings.slides-per-view }},
+            slidesPerGroup: {{ section.settings.slides-per-group }},
+        }
+      }
+    });
+</script>
+
+{% schema %}
+    {
+        "name": "Featured Products Slider",
+        "class": "index-section",
+        "settings": [
+            {
+                "id": "featured-slider-header",
+                "type": "text",
+                "label": "Featured Slider Header"
+            },
+            {
+                "id": "slides-per-view",
+                "type": "range",
+                "min": 1,
+                "max": 20,
+                "step": 1,
+                "default": 4,
+                "label": "How many slides should be visible?"
+            },
+            {
+                "id": "slides-per-group",
+                "type": "range",
+                "min": 1,
+                "max": 20,
+                "step": 1,
+                "default": 4,
+                "label": "How many slides should be navigated per click?"
+            },
+            {
+                "id": "slides-per-view-mobile",
+                "type": "range",
+                "min": 1,
+                "max": 20,
+                "step": 1,
+                "default": 2,
+                "label": "How many slides should be visible on mobile view?"
+            },
+            {
+                "id": "slides-per-group-mobile",
+                "type": "range",
+                "min": 1,
+                "max": 20,
+                "step": 1,
+                "default": 2,
+                "label": "How many slides should be navigated per click on mobile view?"
+            },
+            {
+                "id": "slides-loop",
+                "type": "checkbox",
+                "default": false,
+                "label": "Loop slider?"
+            }
+        ],
+        "presets": [
+            {
+                "name": "Featured Products Slider",
+                "category": "Sliders"
+            }
+        ]
+    }
+{% endschema %}
